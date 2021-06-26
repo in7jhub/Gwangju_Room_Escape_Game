@@ -1,51 +1,69 @@
 package com.example.blossom;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import androidx.appcompat.widget.Toolbar;
+import android.view.MenuInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Button btn_map;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu) ;
-
-        return true ;
-    }
+    private View decorView;
+    private int    uiOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Toolbar toolbar1 = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar1);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        toolbar1.setTitle("");
+        toolbar1.setSubtitle("");
+        //toolbar.setLogo(R.drawable.ic_toolbar);
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility( uiOption );
+    }
 
-        btn_map = findViewById(R.id.btn_map);
-        btn_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this , Map.class);
-                startActivity(intent); // 액티비티 이동
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_toolbar, menu);
+        return true;
+    }
 
-        btn_map = findViewById(R.id.btn_memo);
-        btn_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this , Memo.class);
-                startActivity(intent); // 액티비티 이동
-            }
-        });
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main_menu_map:
+                Intent NewActivity = new Intent(getApplicationContext(), Map.class);
+                startActivity(NewActivity);
+                break;
+            case R.id.main_menu_quiz:
+                Intent NewActivity2 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(NewActivity2);
+                break;
+            case R.id.main_menu_memo:
+                Intent NewActivity3 = new Intent(getApplicationContext(), Memo.class);
+                startActivity(NewActivity3);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }
