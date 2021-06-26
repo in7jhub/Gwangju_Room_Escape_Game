@@ -50,15 +50,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_menu_map:
-                Intent NewActivity = new Intent(getApplicationContext(), Map.class);
+                Intent NewActivity = new Intent(MainActivity.this, Map.class);
                 startActivity(NewActivity);
                 break;
             case R.id.main_menu_quiz:
-                Intent NewActivity2 = new Intent(getApplicationContext(), MainActivity.class);
+                Intent NewActivity2 = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(NewActivity2);
                 break;
             case R.id.main_menu_memo:
-                Intent NewActivity3 = new Intent(getApplicationContext(), Memo.class);
+                Intent NewActivity3 = new Intent(MainActivity.this, Memo.class);
                 startActivity(NewActivity3);
                 break;
             default:

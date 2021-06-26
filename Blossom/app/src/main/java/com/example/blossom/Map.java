@@ -53,15 +53,15 @@ public class Map extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.map_menu_map:
-                Intent NewActivity4 = new Intent(getApplicationContext(), Map.class);
+                Intent NewActivity4 = new Intent(Map.this, Map.class);
                 startActivity(NewActivity4);
                 break;
             case R.id.map_menu_quiz:
-                Intent NewActivity5 = new Intent(getApplicationContext(), MainActivity.class);
+                Intent NewActivity5 = new Intent(Map.this, MainActivity.class);
                 startActivity(NewActivity5);
                 break;
             case R.id.map_menu_memo:
-                Intent NewActivity6 = new Intent(getApplicationContext(), Memo.class);
+                Intent NewActivity6 = new Intent(Map.this, Memo.class);
                 startActivity(NewActivity6);
                 break;
             default:

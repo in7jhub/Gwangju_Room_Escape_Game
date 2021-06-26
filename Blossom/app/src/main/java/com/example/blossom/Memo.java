@@ -51,16 +51,17 @@ public class Memo extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.memo_menu_map:
-                Intent NewActivity7 = new Intent(getApplicationContext(), Map.class);
+                Intent NewActivity7 = new Intent(Memo.this, Map.class);
                 startActivity(NewActivity7);
                 break;
             case R.id.memo_menu_quiz:
-                Intent NewActivity8 = new Intent(getApplicationContext(), MainActivity.class);
+                Intent NewActivity8 = new Intent(Memo.this, MainActivity.class);
                 startActivity(NewActivity8);
                 break;
             case R.id.memo_menu_memo:
-                Intent NewActivity9 = new Intent(getApplicationContext(), Memo.class);
+                Intent NewActivity9 = new Intent(Memo.this, Memo.class);
                 startActivity(NewActivity9);
+
                 break;
             default:
                 break;

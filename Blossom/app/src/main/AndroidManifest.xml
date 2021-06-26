@@ -11,10 +11,13 @@
         >
         <activity android:name=".Memo"
             android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
             ></activity>
         <activity android:name=".Map"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
