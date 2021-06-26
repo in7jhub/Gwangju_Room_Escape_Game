@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         sign:penSize="5dp"
         sign:backgroundColor="#ffffff"
-        sign:penColor="#000000"
+        sign:penColor="#D62C53"
         sign:enableSignature="true"/>
 
     <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,7 +43,7 @@
     </TextView>
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/eraser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00ff0000"

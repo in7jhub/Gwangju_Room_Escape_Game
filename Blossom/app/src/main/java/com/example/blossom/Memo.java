@@ -11,6 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.kyanogen.signatureview.SignatureView;
 
 public class Memo extends AppCompatActivity {
     private View decorView;
@@ -36,7 +40,17 @@ public class Memo extends AppCompatActivity {
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-        decorView.setSystemUiVisibility( uiOption );
+        decorView.setSystemUiVisibility( uiOption ); // 소프트버튼 없애기
+
+        ImageButton eraser_btn = (ImageButton) findViewById(R.id.eraser) ;
+
+        eraser_btn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignatureView signatureView = (SignatureView) findViewById(R.id.signature_view);
+                signatureView.clearCanvas();
+            }
+        });
     }
 
 
@@ -61,11 +75,12 @@ public class Memo extends AppCompatActivity {
             case R.id.memo_menu_memo:
                 Intent NewActivity9 = new Intent(Memo.this, Memo.class);
                 startActivity(NewActivity9);
-
                 break;
             default:
                 break;
         }
         return true;
     }
+
+
 }
