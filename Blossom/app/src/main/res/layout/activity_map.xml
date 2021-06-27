@@ -24,10 +24,4 @@
             android:textSize="24sp"
             />
     </androidx.appcompat.widget.Toolbar>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="여기는 지도입니다">
-    </TextView>
 </RelativeLayout>

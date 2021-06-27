@@ -33,14 +33,7 @@
             android:id="@+id/toolbar_title"
             android:textSize="24sp"
             />
-
     </androidx.appcompat.widget.Toolbar>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="여기는 메모입니다">
-    </TextView>
 
     <ImageButton
         android:id="@+id/eraser"
@@ -49,5 +42,8 @@
         android:background="#00ff0000"
         android:padding="0dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
         android:src="@drawable/imgbtn_states" />
 </RelativeLayout>
