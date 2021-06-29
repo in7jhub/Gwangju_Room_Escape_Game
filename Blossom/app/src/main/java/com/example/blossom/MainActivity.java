@@ -1,16 +1,23 @@
 package com.example.blossom;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EdgeEffect;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import static com.example.blossom.R.id.main_nest;
 
 public class MainActivity extends AppCompatActivity {
     private View decorView;
@@ -52,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main_menu_map:
                 Intent NewActivity = new Intent(MainActivity.this, Map.class);
                 startActivity(NewActivity);
-                break;
-            case R.id.main_menu_quiz:
-                Intent NewActivity2 = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(NewActivity2);
                 break;
             case R.id.main_menu_memo:
                 Intent NewActivity3 = new Intent(MainActivity.this, Memo.class);

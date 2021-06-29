@@ -10,8 +10,16 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarDefaultDelayBeforeFade=""
-        android:scrollbarAlwaysDrawVerticalTrack = "">
+        android:id="@+id/main_nest"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="5dp"
+        android:scrollbarSize="5dp"
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:overScrollHeader="#F6B5D1"
+        android:overScrollFooter="#F6B5D1">
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
@@ -44,7 +52,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-
                 android:text="1"
                 android:textColor="#ed32a5"
                 android:textSize="22sp" />
@@ -64,6 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="문제"
-            android:textSize="24sp"/>
+            android:textSize="32sp"/>
     </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>

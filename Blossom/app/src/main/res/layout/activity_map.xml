@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Map">
 
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/map_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/map" />
+
     <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map_toolbar"
@@ -21,7 +27,7 @@
             android:text="지도"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="24sp"
+            android:textSize="32sp"
             />
     </androidx.appcompat.widget.Toolbar>
 </RelativeLayout>

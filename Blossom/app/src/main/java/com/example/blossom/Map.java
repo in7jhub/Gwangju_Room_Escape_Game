@@ -1,8 +1,5 @@
 package com.example.blossom;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class Map extends AppCompatActivity {
     private View decorView;
@@ -52,10 +52,6 @@ public class Map extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.map_menu_map:
-                Intent NewActivity4 = new Intent(Map.this, Map.class);
-                startActivity(NewActivity4);
-                break;
             case R.id.map_menu_quiz:
                 Intent NewActivity5 = new Intent(Map.this, MainActivity.class);
                 startActivity(NewActivity5);
