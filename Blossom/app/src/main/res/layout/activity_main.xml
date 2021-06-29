@@ -7,6 +7,18 @@
     tools:context=".MainActivity"
     tools:ignore="Deprecated">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarDefaultDelayBeforeFade=""
+        android:scrollbarAlwaysDrawVerticalTrack = "">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2000dp"
+            android:text="Button"/>
+    </androidx.core.widget.NestedScrollView>
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
@@ -25,7 +37,6 @@
                 android:layout_x="10dp"
                 android:layout_y="0dp"
                 android:src="@drawable/blossomdiamond"/>
-
             <TextView
                 android:id="@+id/blossom_num"
                 android:layout_y="22dp"
@@ -37,7 +48,6 @@
                 android:text="1"
                 android:textColor="#ed32a5"
                 android:textSize="22sp" />
-
             <TextView
                 android:id="@+id/diamond_num"
                 android:layout_y="21dp"
@@ -48,7 +58,6 @@
                 android:textColor="#ed32a5"
                 android:textSize="22sp"/>
         </AbsoluteLayout>
-
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
