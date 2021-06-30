@@ -1,34 +1,37 @@
-package com.example.blossom;
+package com.game.blossom;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EdgeEffect;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import static com.example.blossom.R.id.main_nest;
 
 public class MainActivity extends AppCompatActivity {
     private View decorView;
     private int    uiOption;
+    private int page_num;
+    TextView main_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        main_title = findViewById(R.id.main_title);
+//        Page page = (Page) getApplicationContext();
+//        page.setCurr(0);
+//        page.getCurr();
+        // set
+//        ((Page) this.getApplication()).setSomeVariable("foo");
+//        main_title.setText(((Page) this.getApplication()).getTitle());
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar1);

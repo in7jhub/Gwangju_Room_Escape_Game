@@ -1,4 +1,4 @@
-package com.example.blossom;
+package com.game.blossom;
 
 import org.junit.Test;
 
