@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,15 +34,32 @@ public class MainActivity extends AppCompatActivity {
 
     TextView main_title;
     TextView progress;
-//    ImageButton answer_btn;
+    TextView blossom_num;
+    TextView diamond_num;
+    ImageButton answer_btn;
     QuizMaker quiz;
     NestedScrollView scrlView;
+    ImageView main_img;
+    ImageView blossomDiamond;
+    ImageButton forward_btn;
+    ImageButton backward_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         main_title = findViewById(R.id.main_title);
+
+        blossomDiamond = findViewById(R.id.blossomDiamond);
+        diamond_num = findViewById(R.id.diamond_num);
+        blossom_num = findViewById(R.id.blossom_num);
+        answer_btn = findViewById(R.id.answer_button);
+        main_img = (ImageView)findViewById(R.id.main_img);
+        main_img.setImageResource(R.drawable.note);
+        forward_btn = (ImageButton)findViewById(R.id.forward_btn);
+        backward_btn = (ImageButton)findViewById(R.id.backward_btn);
+        backward_btn.setVisibility(View.INVISIBLE); // 퀴즈가 0이므로 사용 불가
+        forward_btn.setVisibility(View.INVISIBLE); // 아직 푼 퀴즈가 없으므로 사용 불가
 
         quiz = new QuizMaker();
         String[] answerCase = new String[13];
@@ -54,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         answerCase[7] = "인생샷성공";
         answerCase[8] = "전화";
         answerCase[9] = "3002";
-        answerCase[10] = "TALK";
+        answerCase[10] = "talk";
         answerCase[11] = "바람?";
         answerCase[12] = "비밀의화원";
 
@@ -62,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         progress = findViewById(R.id.progress);
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
         AlertDialog.Builder hint = new AlertDialog.Builder(MainActivity.this);
+
         ImageButton answer_btn = (ImageButton)findViewById(R.id.answer_button);
         answer_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -114,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast toast;
                         if(answer.getText().toString().equals(answerCase[quiz.iCurQuiz])){
                             scrlView.fullScroll(ScrollView.FOCUS_UP);
+                            quiz.isQuizSolved[quiz.iCurQuiz] = true;
                             quiz.iCurQuiz++;
+                            iPage++;
                         } else {
                             toast = Toast.makeText(getApplicationContext(), "오답이예요!", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER|Gravity.CENTER, 0, 0);
@@ -134,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         switch(quiz.iCurQuiz){
                             case 0 :
-                                hint.setMessage("지문에 나온 대로 ‘Love Blossom’을 입력하세요.");
+                                hint.setMessage("지문에 나온 대로 ‘loveblossom’을 입력하세요.");
                                 break;
                             case 1 :
                                 hint.setMessage("1. B로 이동하세요.\n" +
@@ -224,6 +246,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        backward_btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                iPage--;
+                quiz.iCurQuiz--;
+            }
+        });
+        forward_btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                quiz.iCurQuiz++;
+                iPage++;
+            }
+        });
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar1);
@@ -247,12 +282,13 @@ public class MainActivity extends AppCompatActivity {
 
     public class QuizMaker {
         private int iCurQuiz;
-        private int iUnlockedQuiz;
         private String[] titles = new String[14];
-
+        public boolean[] isQuizSolved = new boolean[14];
         QuizMaker (){
+            for(int i = 0; i < isQuizSolved.length; i++){
+                isQuizSolved[i] = false;
+            }
             this.iCurQuiz = 0;
-            this.iUnlockedQuiz = 0;
             this.titles[0] = "테마 시작 전 안내 사항";
             this.titles[1] = "약속장소";
             this.titles[2] = "만남";
@@ -269,26 +305,31 @@ public class MainActivity extends AppCompatActivity {
             this.titles[13] = "이벤트";
         }
 
+        public void isQuizSolved(){
+            if(this.isQuizSolved[iCurQuiz]){
+                forward_btn.setVisibility(View.VISIBLE);
+                answer_btn.setVisibility(View.INVISIBLE);
+            } else {
+                forward_btn.setVisibility(View.INVISIBLE);
+                answer_btn.setVisibility(View.VISIBLE);
+            }
+
+            if(this.iCurQuiz == 0){
+                backward_btn.setVisibility(View.INVISIBLE);
+            } else {
+                backward_btn.setVisibility(View.VISIBLE);
+            }
+
+            if(this.iCurQuiz == 13){
+                forward_btn.setVisibility(View.INVISIBLE);
+            }
+        }
+
         public int getCurr() {
             return iCurQuiz;
         }
         public void setCurr(int iSet) {
             this.iCurQuiz = iSet;
-        }
-
-        public int getUnlocked() {
-            return iUnlockedQuiz;
-        }
-        public void setUnlocked(int iUnlock) {
-            this.iUnlockedQuiz = iUnlock;
-        }
-
-        public boolean isUnlocked(int _page_num){
-            if(_page_num == this.getUnlocked()){
-                return true;
-            } else {
-                return false;
-            }
         }
 
         public String getTitle(){
@@ -326,32 +367,81 @@ public class MainActivity extends AppCompatActivity {
     void main_loop_content(){
         progress.setText(quiz.iCurQuiz+" / 15");
         main_title.setText(quiz.titles[quiz.iCurQuiz]);
+        quiz.isQuizSolved();
         switch(iPage){
             case 0 :
+                blossom_num.setVisibility(View.INVISIBLE);
+                diamond_num.setVisibility(View.INVISIBLE);
+                blossomDiamond.setVisibility(View.INVISIBLE);
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 1 :
+                blossom_num.setVisibility(View.VISIBLE);
+                diamond_num.setVisibility(View.VISIBLE);
+                blossomDiamond.setVisibility(View.VISIBLE);
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("B");
+                main_img.setImageResource(R.drawable.not2e);
                 break;
             case 2 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("H");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 3 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("J");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 4 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("E");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 5 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("S");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 6 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("C");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 7 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("P");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 8 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("Z");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 9 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("T");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 10 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("W");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 11 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("W");
+                main_img.setImageResource(R.drawable.map);
                 break;
             case 12 :
+                blossom_num.setText(Integer.toString(quiz.iCurQuiz));
+                diamond_num.setText("W");
+                main_img.setImageResource(R.drawable.map);
+                break;
+            case 13 :
+                blossom_num.setText("13");
+                diamond_num.setText("?");
+                answer_btn.setVisibility(View.INVISIBLE);
                 break;
         }
     }

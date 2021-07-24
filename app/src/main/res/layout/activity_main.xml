@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:ignore="Deprecated">
+    tools:ignore="Deprecated"
+    android:id="@+id/activity_main">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/main_nest"
@@ -20,12 +21,15 @@
         android:scrollbarThumbVertical="@drawable/custom_scroll_style"
         android:overScrollHeader="#000000"
         android:overScrollFooter="#F6B5D1">
-        <Button
-            android:id="@+id/button"
+        <ImageView
+            android:id="@+id/main_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2000dp"
-            android:text="Button" />
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="0dp"
+            android:scaleType="fitStart"
+            android:layout_marginBottom="0dp"
+            ></ImageView>
     </androidx.core.widget.NestedScrollView>
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
@@ -40,6 +44,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:id="@+id/backward_btn"
                 android:layout_width="57dp"
                 android:layout_height="54dp"
                 android:layout_marginRight="70dp"
@@ -52,6 +57,7 @@
                 app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
             <ImageButton
+                android:id="@+id/forward_btn"
                 android:layout_width="50dp"
                 android:layout_height="56dp"
                 android:layout_marginRight="5dp"
@@ -72,32 +78,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="3dp"
-        android:layout_marginLeft="26dp"
+        android:layout_marginLeft="27dp"
         android:src="@drawable/blossomdiamond"/>
 
     <TextView
         android:id="@+id/blossom_num"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="21dp"
         android:text="1"
         android:textColor="#ed32a5"
-        android:textSize="22sp"
+        android:textSize="19sp"
+        android:gravity="center_horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/diamond_num"
-        android:layout_width="wrap_content"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="18dp"
-        android:layout_marginLeft="99dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="94dp"
         android:text="B"
         android:textColor="#ed32a5"
-        android:textSize="22sp"/>
+        android:textSize="19sp"
+        android:gravity="center_horizontal"/>
 
     <!-- 제목 activity_main.class에서 바뀌는 것 -->
     <TextView
@@ -124,8 +132,8 @@
         android:layout_marginRight="40dp"
         android:background="@android:color/transparent"
         android:scaleType="fitStart"
-        android:src="@drawable/answer_button_states"
-        ></ImageButton>
+        android:src="@drawable/answer_button_states">
+    </ImageButton>
 
     <!--진행도 표시-->
     <TextView
@@ -133,9 +141,9 @@
         android:layout_width="120dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginBottom="90dp"
-        android:layout_marginLeft="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="70dp"
+        android:layout_marginRight="150dp"
         android:gravity="center_horizontal"
         android:textSize="20sp">
     </TextView>

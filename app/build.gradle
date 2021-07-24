@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.game.gwangjugameapp"
+        applicationId "com.game.gwangjugameappcpy"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
