@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         blossom_num = findViewById(R.id.blossom_num);
         answer_btn = findViewById(R.id.answer_button);
         main_img = (ImageView)findViewById(R.id.main_img);
-        main_img.setImageResource(R.drawable.note);
+        main_img.setImageResource(R.drawable.img0);
         forward_btn = (ImageButton)findViewById(R.id.forward_btn);
         backward_btn = (ImageButton)findViewById(R.id.backward_btn);
         backward_btn.setVisibility(View.INVISIBLE); // 퀴즈가 0이므로 사용 불가
@@ -249,12 +249,16 @@ public class MainActivity extends AppCompatActivity {
         backward_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 iPage--;
-                quiz.iCurQuiz--;
+                if(quiz.iCurQuiz > 0) {
+                    quiz.iCurQuiz--;
+                }
             }
         });
         forward_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                quiz.iCurQuiz++;
+                if(quiz.iCurQuiz < 13){
+                    quiz.iCurQuiz++;
+                }
                 iPage++;
             }
         });
@@ -373,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
                 blossom_num.setVisibility(View.INVISIBLE);
                 diamond_num.setVisibility(View.INVISIBLE);
                 blossomDiamond.setVisibility(View.INVISIBLE);
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img0);
                 break;
             case 1 :
                 blossom_num.setVisibility(View.VISIBLE);
@@ -381,66 +385,70 @@ public class MainActivity extends AppCompatActivity {
                 blossomDiamond.setVisibility(View.VISIBLE);
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("B");
-                main_img.setImageResource(R.drawable.not2e);
+                main_img.setImageResource(R.drawable.img1);
                 break;
             case 2 :
+                blossom_num.setVisibility(View.VISIBLE);
+                diamond_num.setVisibility(View.VISIBLE);
+                blossomDiamond.setVisibility(View.VISIBLE);
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("H");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img2);
                 break;
             case 3 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("J");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img3);
                 break;
             case 4 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("E");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img4);
                 break;
             case 5 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("S");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img5);
                 break;
             case 6 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("C");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img6);
                 break;
             case 7 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("P");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img7);
                 break;
             case 8 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("Z");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img8);
                 break;
             case 9 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("T");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img9);
                 break;
             case 10 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("W");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img10);
                 break;
             case 11 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("W");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img11);
                 break;
             case 12 :
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
                 diamond_num.setText("W");
-                main_img.setImageResource(R.drawable.map);
+                main_img.setImageResource(R.drawable.img12);
                 break;
             case 13 :
                 blossom_num.setText("13");
                 diamond_num.setText("?");
+                main_img.setImageResource(R.drawable.img13);
                 answer_btn.setVisibility(View.INVISIBLE);
                 break;
         }
