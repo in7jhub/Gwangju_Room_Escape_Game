@@ -77,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
         answerCase[11] = "바람?";
         answerCase[12] = "비밀의화원";
 
+        //debug
+        /*
+        quiz.iCurQuiz = 12;
+        iPage = 12;
+        for(int i = 0;  i < quiz.isQuizSolved.length; i++){
+            quiz.isQuizSolved[i] = true;
+        }
+        */
+        //--
+
         scrlView = (NestedScrollView) findViewById(R.id.main_nest);
         progress = findViewById(R.id.progress);
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
@@ -158,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                                 hint.setMessage("지문에 나온 대로 ‘loveblossom’을 입력하세요.");
                                 break;
                             case 1 :
-                                hint.setMessage("1. B로 이동하세요.\n" +
+                                hint.setMessage("1. H로 이동하세요.\n" +
                                         "\n" +
                                         "2. 카카오톡 대화에서 민성(남)이 보낸 사진의 간판 이름이 비어있습니다. 이름을 찾아주세요.");
                                 break;
@@ -197,7 +207,8 @@ public class MainActivity extends AppCompatActivity {
                             case 7 :
                                 hint.setMessage("1. P로 이동하세요.\n" +
                                         "\n" +
-                                        "2. 사진을 매장 핸드폰 번호로 보내주세요.");
+                                        "2. 지문에 따라 여러분의 핸드폰으로 사진을 찍고 매장 핸드폰으로 보내\n" +
+                                        "주세요. 그 후 '인생샷성공'을 정답에 입력하세요.");
                                 break;
                             case 8 :
                                 hint.setMessage("1. Z로 이동하세요.\n" +
@@ -218,7 +229,8 @@ public class MainActivity extends AppCompatActivity {
                             case 10 :
                                 hint.setMessage("1. W로 이동하세요.\n" +
                                         "\n" +
-                                        "2. 사진에 나온 카페로 들어가서, 주문을 해주세요.");
+                                        "2. 카페로 들어가서 주문을 해주세요. 음료를 마신 후\n" +
+                                        "컵의 안쪽 바닥의 영어를 지문 순서에 맞게 넣어주세요.");
                                 break;
                             case 11 :
                                 hint.setMessage("1. 카카오톡 메시지와 아래 6개 문장을 비교해주세요." +
@@ -381,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
                 diamond_num.setVisibility(View.VISIBLE);
                 blossomDiamond.setVisibility(View.VISIBLE);
                 blossom_num.setText(Integer.toString(quiz.iCurQuiz));
-                diamond_num.setText("B");
+                diamond_num.setText("H");
                 main_img.setImageResource(R.drawable.img1);
                 break;
             case 2 :
