@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,10 +23,13 @@ public class Memo extends AppCompatActivity {
     private View decorView;
     private int uiOption;
     ImageButton eraser_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
+        doFullScreen();
+        //------------------------------------------------------------
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar3 = (Toolbar) findViewById(R.id.memo_toolbar);
         setSupportActionBar(toolbar3);
@@ -80,6 +84,7 @@ public class Memo extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.memo_toolbar, menu);
         decorView.setSystemUiVisibility( uiOption );
+        doFullScreen();
         return true;
     }
 
@@ -98,5 +103,16 @@ public class Memo extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    private void doFullScreen() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+            View.SYSTEM_UI_FLAG_IMMERSIVE|
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE|
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 }

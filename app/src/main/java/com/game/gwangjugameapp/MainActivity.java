@@ -1,13 +1,15 @@
 package com.game.gwangjugameapp;
 
+import android.app.ActivityOptions;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
-import android.media.MediaPlayer;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,6 +29,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
     private View decorView;
@@ -44,12 +48,20 @@ public class MainActivity extends AppCompatActivity {
     ImageButton forward_btn;
     ImageButton backward_btn;
 
+    private static final String KIOSK_PACKAGE = "com.game.gwangjugameapp";
+    private static final String PLAYER_PACKAGE = "com.game.gwangjugameapp";
+    private static final String[] APP_PACKAGES = {KIOSK_PACKAGE, PLAYER_PACKAGE};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        main_title = findViewById(R.id.main_title);
 
+        //------------------------------------------------------------
+        doFullScreen();
+
+        main_title = findViewById(R.id.main_title);
         blossomDiamond = findViewById(R.id.blossomDiamond);
         diamond_num = findViewById(R.id.diamond_num);
         blossom_num = findViewById(R.id.blossom_num);
@@ -109,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         alert.setTitle("영어 9자리");
                         break;
                     case 4 :
+                        break;
                     case 10 :
                         alert.setTitle("영어 4자리");
                         break;
@@ -138,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
                 final EditText answer = new EditText(MainActivity.this);
                 answer.setGravity(View.TEXT_ALIGNMENT_CENTER);
                 alert.setView(answer);
-
                 alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Toast toast;
@@ -160,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                         toast.show();
                     }
                 });
-
                 alert.setNeutralButton("힌트", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         switch(quiz.iCurQuiz){
@@ -236,12 +247,11 @@ public class MainActivity extends AppCompatActivity {
                                 hint.setMessage("1. 카카오톡 메시지와 아래 6개 문장을 비교해주세요." +
                                         "\n" +
                                         "비어있는 것이 있습니다. 6개를 찾아 한 단어로 합쳐주세요.");
-
                                 break;
                             case 12 :
                                 hint.setMessage("1. 카페에서 나와, 사진을 따라 이동해주세요." +
                                         "\n" +
-                                        "이동하면 매장 건물 아래에 도착하게 됩니다. 그곳에서 사진의 빈칸에 들어갈 글자를 찾아주세요.");
+                                          "이동하면 매장 건물 아래에 도착하게 됩니다. 그곳에서 사진의 빈칸에 들어갈 글자를 찾아주세요.");
                                 break;
                         }
                         hint.setNegativeButton("닫기", new DialogInterface.OnClickListener() {
@@ -256,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
 //                alert.getWindow().setGravity(Gravity.TOP);
             }
         });
-
         backward_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(iPage > 0) {
@@ -289,7 +298,6 @@ public class MainActivity extends AppCompatActivity {
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
             uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility( uiOption );
-
         main_loop();
     }
 
@@ -326,13 +334,11 @@ public class MainActivity extends AppCompatActivity {
                 forward_btn.setVisibility(View.INVISIBLE);
                 answer_btn.setVisibility(View.VISIBLE);
             }
-
             if(this.iCurQuiz == 0){
                 backward_btn.setVisibility(View.INVISIBLE);
             } else {
                 backward_btn.setVisibility(View.VISIBLE);
             }
-
             if(this.iCurQuiz == 13){
                 forward_btn.setVisibility(View.INVISIBLE);
             }
@@ -500,6 +506,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_toolbar, menu);
+        doFullScreen();
         return true;
     }
 
@@ -507,16 +514,31 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_menu_map:
+                stopLockTask();
                 Intent NewActivity = new Intent(MainActivity.this, Map.class);
                 startActivity(NewActivity);
+                //startLockTask();
                 break;
             case R.id.main_menu_memo:
+                stopLockTask();
                 Intent NewActivity3 = new Intent(MainActivity.this, Memo.class);
                 startActivity(NewActivity3);
+                //startLockTask();
                 break;
             default:
                 break;
         }
         return true;
+    }
+
+    private void doFullScreen() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+            View.SYSTEM_UI_FLAG_IMMERSIVE|
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE|
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 }
